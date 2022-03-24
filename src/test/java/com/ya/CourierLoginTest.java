@@ -30,7 +30,7 @@ public class CourierLoginTest {
 
     @Test
     @DisplayName("Courier Can Login With Valid Credentials") // имя теста
-    @Description("Checking courier's Id and status code of response corresponds to successful login of courier") // описание теста
+    @Description("Checking courier's Id and status code of response corresponds to successful login of courier")
     public void courierCanLoginWithValidCredentials() {
         ValidatableResponse loginResponse = courierClient.login(new CourierCredentials(courier.getLogin(), courier.getPassword()));
         int statusCode = loginResponse.extract().statusCode();
@@ -49,7 +49,6 @@ public class CourierLoginTest {
         assertThat("Courier can login with empty password", statusCode, equalTo(SC_BAD_REQUEST));
         String message = loginResponse.extract().path("message");
         assertThat("Warning message isn't sent", message, equalTo("Недостаточно данных для входа"));
-
     }
 
     @Test
@@ -67,18 +66,19 @@ public class CourierLoginTest {
     @DisplayName("courier Cannot Login With Incorrect Pair Login Password") // имя теста
     @Description("Checking courier login returns Not Found status code when pair of login and password isn't exist")
     public void courierCannotLoginWithIncorrectPairLoginPassword() {
-       String incorrectPassword="incorrectPassword";
-        ValidatableResponse loginResponse = courierClient.login(new CourierCredentials( courier.getLogin(),incorrectPassword));
+        String incorrectPassword = "incorrectPassword";
+        ValidatableResponse loginResponse = courierClient.login(new CourierCredentials(courier.getLogin(), incorrectPassword));
         int statusCode = loginResponse.extract().statusCode();
         assertThat("Courier can login with non exist pair login-password ", statusCode, equalTo(SC_NOT_FOUND));
         String message = loginResponse.extract().path("message");
         assertThat("Warning message isn't sent", message, equalTo("Учетная запись не найдена"));
     }
+
     @Test
     @DisplayName("courier Cannot Login If He Is Not Exist") // имя теста
     @Description("Checking courier login returns Not Found when login isn't exist")
     public void courierCannotLoginIfHeIsNotExist() {
-        String incorrectLogin="incorrectLogin";
+        String incorrectLogin = "incorrectLogin";
         ValidatableResponse loginResponse = courierClient.login(new CourierCredentials(incorrectLogin, courier.getPassword()));
         int statusCode = loginResponse.extract().statusCode();
         assertThat("Courier can login with non exist login and exist password", statusCode, equalTo(SC_NOT_FOUND));

@@ -1,10 +1,7 @@
 package com.ya;
-
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
-
 import static io.restassured.RestAssured.given;
-
 public class CourierClient extends ScooterRestClient {
     private static final String COURIER_PATH = "api/v1/courier/";
 @Step("Login with credentials{credentials}")
@@ -18,7 +15,6 @@ public class CourierClient extends ScooterRestClient {
     }
     @Step("Create courier {courier}")
     public ValidatableResponse create(Courier courier){
-
         String registerRequestBody = "{\"login\":\"" + courier.getLogin() + "\","
                 + "\"password\":\"" + courier.getPassword() + "\","
                 + "\"firstName\":\"" + courier.getFirstName() + "\"}";

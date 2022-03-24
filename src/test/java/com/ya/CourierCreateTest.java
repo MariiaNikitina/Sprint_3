@@ -5,6 +5,7 @@ import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -12,7 +13,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class CourierCreateTest {
     CourierClient courierClient;
     Courier courier;
-
 
     @Before
     public void setUp() {
@@ -80,6 +80,4 @@ public class CourierCreateTest {
         String message = createResponse.extract().path("message");
         assertThat("The error message isn't equal to expected", message, equalTo("Недостаточно данных для создания учетной записи"));
     }
-
-
 }

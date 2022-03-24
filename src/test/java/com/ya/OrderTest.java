@@ -12,6 +12,7 @@ import org.junit.runners.Parameterized;
 import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+
 @RunWith(Parameterized.class)
 public class OrderTest {
     Order order;
@@ -23,11 +24,11 @@ public class OrderTest {
         this.scooterColor = scooterColor;
     }
 
-    @Parameterized.Parameters // добавили аннотацию
+    @Parameterized.Parameters(name = "Scooter color:{0}, {1}") // добавили аннотацию
     public static Object[][] getScooterColor() {
-        return new Object[][] {
-                { "BLACK"},
-                { "WHITE"},
+        return new Object[][]{
+                {"BLACK"},
+                {"WHITE"},
                 {"BLACK\", \"WHITE"},
                 {"\", \""},
                 {"\", \"WHITE"},
@@ -36,22 +37,24 @@ public class OrderTest {
     }
 
     @Before
-    public void setUp(){
-        orderClient=new OrderClient();
-        order=OrderDataGenerator.getRandomOrderData();
+    public void setUp() {
+        orderClient = new OrderClient();
+        order = OrderDataGenerator.getRandomOrderData();
     }
+
     @After
-    public void tearDown(){
+    public void tearDown() {
         orderClient.cancelOrder(track);
     }
+
     @DisplayName("Create Order With different scooter Color")
-    @Description("Checking order is created with different colors") // описание теста
+    @Description("Checking order is created with different colors")
     @Test
-    public void createOrderWithDifferentColor(){
-        ValidatableResponse createResponse=orderClient.createOrder(order,scooterColor);
-        int statusCode=createResponse.extract().statusCode();
+    public void createOrderWithDifferentColor() {
+        ValidatableResponse createResponse = orderClient.createOrder(order, scooterColor);
+        int statusCode = createResponse.extract().statusCode();
         assertThat("Order creation doesn't send created message", statusCode, equalTo(SC_CREATED));
-        track=createResponse.extract().path("track");
+        track = createResponse.extract().path("track");
         assertThat("Returned track is equal to zero", track, is(not(0)));
     }
 }

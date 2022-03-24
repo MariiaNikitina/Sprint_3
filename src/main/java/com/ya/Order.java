@@ -10,7 +10,7 @@ public class Order {
         this.rentTime = rentTime;
         this.deliveryDate = deliveryDate;
         this.comment = comment;
-        this.color=color;
+        this.color = color;
     }
 
     public String getFirstName() {
@@ -95,5 +95,4 @@ public class Order {
     }
 
     private String color;
-
 }

@@ -5,9 +5,9 @@ import io.restassured.response.ValidatableResponse;
 import static io.restassured.RestAssured.given;
 
 public class OrderList extends ScooterRestClient {
-    private final String ORDER_LIST_PATH="api/v1/orders";
+    private final String ORDER_LIST_PATH = "api/v1/orders";
 
-    public ValidatableResponse getOrderList(){
+    public ValidatableResponse getOrderList() {
         return given()
                 .spec(getBaseSpec())
                 .body("")
